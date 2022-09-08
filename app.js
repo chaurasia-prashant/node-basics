@@ -1,10 +1,21 @@
-const {readFileSync, writeFileSync} = require('fs');
+// get back the class
+// if want custom extend from class
+// otherwise just for emitting and handling events create instance
+const EventEmitter = require('events')
 
-const first = readFileSync('./content/first.txt','utf8');
+const customEmitter = new EventEmitter()
 
-const second = readFileSync('./content/second.txt','utf8')
+// on and emit methods
+// keep track of the order
+// additional arguments
+// built-in modules utilize it
 
-// console.log(first,second);
+customEmitter.on('response', (name, id) => {
+  console.log(`data recieved user ${name} with id:${id}`)
+})
 
+customEmitter.on('response', () => {
+  console.log('some other logic here')
+})
 
-writeFileSync('./content/result-sync.txt', `here is the result: ${first}, ${second}`)
+customEmitter.emit('response', 'john', 34)
